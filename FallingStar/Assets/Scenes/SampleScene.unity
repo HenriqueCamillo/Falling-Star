@@ -291,6 +291,7 @@ MonoBehaviour:
   shine: 100
   arrowSizeController: 6
   maxImpulse: 10
+  maxFreeFalling: 5
 --- !u!4 &636278690
 Transform:
   m_ObjectHideFlags: 0

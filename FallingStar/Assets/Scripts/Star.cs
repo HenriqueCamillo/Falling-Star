@@ -17,6 +17,8 @@ public class Star : MonoBehaviour {
 	private Vector2 arrowSize;
 	private Vector2 impulse;
 	[SerializeField][Range(1, 500)] float maxImpulse;
+	private Vector3 screenPoint;
+	[SerializeField][Range(1, 10)] float maxFreeFalling;
 
 	public Vector2 Impulse {
 		get{return impulse;}
@@ -40,17 +42,38 @@ public class Star : MonoBehaviour {
 		arrowSprite = arrow.gameObject.GetComponent<SpriteRenderer>();
 	}
 	
+	void MouseUpdate() {
+
+	}
 	void Update () {
-		if (Input.GetMouseButtonDown(0) && !inSlowMotion) {
-			inSlowMotion = true;
-			StartCoroutine("CalculateImpulse");
-			Time.timeScale = 0.1f;
-			arrowSprite.enabled = true;
-			Invoke("SlowMotion", slowMotionDuration * Time.timeScale);
-		}
+		#if UNITY_ANDROID && !UNITY_EDITOR
+			if (Input.touchCount > 0 && !inSlowMotion) {
+				touch = Input.GetTouch(0);
+				inSlowMotion = true;
+				StartCoroutine("CalculateImpulse");
+				Time.timeScale = 0.1f;
+				arrowSprite.enabled = true;
+				Invoke("SlowMotion", slowMotionDuration * Time.timeScale);
+			}
+		#elif UNITY_EDITOR || UNITY_WSA
+			if (Input.GetMouseButtonDown(0) && !inSlowMotion) {
+				inSlowMotion = true;
+				StartCoroutine("CalculateImpulse");
+				Time.timeScale = 0.1f;
+				arrowSprite.enabled = true;
+				Invoke("SlowMotion", slowMotionDuration * Time.timeScale);
+			}
+		#endif
 
 		if(inSlowMotion)
 			CalculateImpulse();
+
+		if(rBody.velocity.y <= -maxFreeFalling) {
+			rBody.gravityScale = 0f;
+		} else {
+			rBody.gravityScale = 1f;
+		}
+
 	}
 
 	void SlowMotion() {
@@ -61,14 +84,12 @@ public class Star : MonoBehaviour {
 	}
 
 	void CalculateImpulse() {
-		#if UNITY_EDITOR_
-		#endif
-		#if UNITY_WINDOWS
-		#endif
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID && !UNITY_EDITOR
+			screenPoint = new Vector3(touch.position.x, touch.position.y, 10f);
+		#elif UNITY_EDITOR || UNITY_WSA
+			screenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		#endif
 
-		var screenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		screenPoint.z = 10f; // Distance from camera
 		impulseDirection = this.transform.position - Camera.main.ScreenToWorldPoint(screenPoint);
 		Impulse = impulseDirection * impulseForce;
