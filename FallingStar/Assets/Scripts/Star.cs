@@ -9,42 +9,67 @@ public class Star : MonoBehaviour {
 	[SerializeField][Range(1f, 10f)] float impulseForce;
 	[SerializeField][Range(0f, 1f)] float slowMotionDuration;
 	[SerializeField] float shine;
-	[SerializeField] private bool inSlowMotion;
+	private bool inSlowMotion;
+	private GameObject arrow;
+	private SpriteRenderer arrowSprite;
+	private float arrowAngle;
+	private Vector2 impulse;
 
+	public Vector2 Impulse {
+		get{return impulse;}
+		set {
+			impulse = value;
+
+			arrowAngle = Vector2.Angle(Vector2.right, impulse);
+			if (impulse.y < 0)
+				arrowAngle += 2 * (180 - arrowAngle);
+
+			arrow.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 
+													this.transform.eulerAngles.y, arrowAngle);
+			// arrow.transform.localScale = new Vector3 (Vector2.SqrMagnitude(impulse), arrow.transform.localScale.y,
+													// arrow.transform.localScale.z);
+		}
+	}
+	
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
+		arrow = GameObject.Find("ArrowCenter");
+		arrowSprite = arrow.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
 	}
 	
 	void Update () {
 		if (Input.GetMouseButtonDown(0) && !inSlowMotion) {
 			inSlowMotion = true;
+			StartCoroutine("CalculateImpulse");
 			Time.timeScale = 0.1f;
+			arrowSprite.enabled = true;
 			Invoke("SlowMotion", slowMotionDuration * Time.timeScale);
 		}
-		// if (Input.GetMouseButton(0)) {
-		// 	var screenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-		// 	screenPoint.z = 10f; // Distance from camera
-		// 	this.transform.position =  Camera.main.ScreenToWorldPoint(screenPoint);
-		// }
-		// if (Input.touchCount > 0) {
-		// 	touch = Input.GetTouch(0);		
-		// 	this.transform.position = touch.position;
-		// }
+
+		if(inSlowMotion)
+			CalculateImpulse();
 	}
 
 	void SlowMotion() {
 		Time.timeScale = 1f;
 		inSlowMotion = false;
-		Impulse();
+		arrowSprite.enabled = false;
+		ImpulseStar();
 	}
 
-	void Impulse() {
+	void CalculateImpulse() {
+		#if UNITY_WINDOWS
+		#endif
+		#if UNITY_ANDROID
+		#endif
+
 		var screenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		screenPoint.z = 10f; // Distance from camera
 		impulseDirection = this.transform.position - Camera.main.ScreenToWorldPoint(screenPoint);
-		impulseDirection *= impulseForce;
-		
-		Debug.Log(Vector3.SqrMagnitude(impulseDirection));
+		Impulse = impulseDirection * impulseForce;
+		impulseDirection = impulseDirection * impulseForce;
+	}
+	void ImpulseStar() {
 		Debug.DrawLine(impulseDirection, this.transform.position, Color.green, 0.3f);
 		rBody.AddForce(impulseDirection, ForceMode2D.Impulse);
 
