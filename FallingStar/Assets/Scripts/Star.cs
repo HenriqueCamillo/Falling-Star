@@ -13,28 +13,31 @@ public class Star : MonoBehaviour {
 	private GameObject arrow;
 	private SpriteRenderer arrowSprite;
 	private float arrowAngle;
+	[SerializeField][Range(1f, 50f)] float arrowSizeController;
+	private Vector2 arrowSize;
 	private Vector2 impulse;
+	[SerializeField][Range(1, 500)] float maxImpulse;
 
 	public Vector2 Impulse {
 		get{return impulse;}
 		set {
 			impulse = value;
-
+			
 			arrowAngle = Vector2.Angle(Vector2.right, impulse);
 			if (impulse.y < 0)
 				arrowAngle += 2 * (180 - arrowAngle);
 
 			arrow.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 
 													this.transform.eulerAngles.y, arrowAngle);
-			// arrow.transform.localScale = new Vector3 (Vector2.SqrMagnitude(impulse), arrow.transform.localScale.y,
-													// arrow.transform.localScale.z);
+			arrow.transform.localScale = new Vector3 (arrowSize.magnitude / arrowSizeController,
+											arrow.transform.localScale.y, arrow.transform.localScale.z);
 		}
 	}
 	
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
-		arrow = GameObject.Find("ArrowCenter");
-		arrowSprite = arrow.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+		arrow = GameObject.Find("Arrow");
+		arrowSprite = arrow.gameObject.GetComponent<SpriteRenderer>();
 	}
 	
 	void Update () {
@@ -58,6 +61,8 @@ public class Star : MonoBehaviour {
 	}
 
 	void CalculateImpulse() {
+		#if UNITY_EDITOR_
+		#endif
 		#if UNITY_WINDOWS
 		#endif
 		#if UNITY_ANDROID
@@ -68,10 +73,18 @@ public class Star : MonoBehaviour {
 		impulseDirection = this.transform.position - Camera.main.ScreenToWorldPoint(screenPoint);
 		Impulse = impulseDirection * impulseForce;
 		impulseDirection = impulseDirection * impulseForce;
+
+		Debug.Log(impulse.magnitude);
+		if (impulse.magnitude > maxImpulse) {
+			Debug.Log("Entrou");
+			impulse = impulse.normalized * maxImpulse;
+			Debug.Log(impulse.magnitude);
+		}
+		arrowSize = impulse;
 	}
 	void ImpulseStar() {
-		Debug.DrawLine(impulseDirection, this.transform.position, Color.green, 0.3f);
-		rBody.AddForce(impulseDirection, ForceMode2D.Impulse);
+		Debug.DrawLine(impulse, this.transform.position, Color.green, 0.3f);
+		rBody.AddForce(impulse, ForceMode2D.Impulse);
 
 		shine -= Vector3.SqrMagnitude(impulseDirection) / impulseForce;
 	}
