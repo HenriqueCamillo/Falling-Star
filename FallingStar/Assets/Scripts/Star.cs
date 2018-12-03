@@ -42,14 +42,12 @@ public class Star : MonoBehaviour {
 		arrowSprite = arrow.gameObject.GetComponent<SpriteRenderer>();
 	}
 	
-	void MouseUpdate() {
-
-	}
 	void Update () {
 		#if UNITY_ANDROID && !UNITY_EDITOR
 			if (Input.touchCount > 0 && !inSlowMotion) {
 				touch = Input.GetTouch(0);
 				inSlowMotion = true;
+				rBody.velocity = Vector3.zero;
 				StartCoroutine("CalculateImpulse");
 				Time.timeScale = 0.1f;
 				arrowSprite.enabled = true;
@@ -58,6 +56,7 @@ public class Star : MonoBehaviour {
 		#elif UNITY_EDITOR || UNITY_WSA
 			if (Input.GetMouseButtonDown(0) && !inSlowMotion) {
 				inSlowMotion = true;
+				rBody.velocity = Vector3.zero;
 				StartCoroutine("CalculateImpulse");
 				Time.timeScale = 0.1f;
 				arrowSprite.enabled = true;
