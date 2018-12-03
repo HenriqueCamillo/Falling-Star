@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour {
 
 	public int index;
-	public Color[] colors;
+	public Sprite[] colors;
 
 	SpriteRenderer spr;
 	Collider2D collider;
@@ -24,7 +24,7 @@ public class PowerUp : MonoBehaviour {
 
 	public void changePowerUp(int powerUpIndex){
 		if(powerUpIndex >= 0 && powerUpIndex < colors.Length){
-			spr.color = colors[powerUpIndex];
+			spr.sprite = colors[powerUpIndex];
 
 			if (index != 1 && powerUpIndex == 1)
 				collider.sharedMaterial = p_bounce;
