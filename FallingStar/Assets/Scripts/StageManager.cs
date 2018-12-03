@@ -10,6 +10,8 @@ public class StageManager : MonoBehaviour {
 
     public GameObject[] bonus;
 
+    public GameObject finalScreen;
+
     public Text stageName;
 
     public int stars = 0;
@@ -21,6 +23,7 @@ public class StageManager : MonoBehaviour {
             Destroy(this.gameObject);
 
         stageName.text = SceneManager.GetActiveScene().name;
+        finalScreen.SetActive(false);
         foreach(GameObject gm in bonus)
             gm.SetActive(false);
     }
@@ -42,6 +45,15 @@ public class StageManager : MonoBehaviour {
     }
 
     public void endStage(){
+        finalScreen.SetActive(true);
+    }
 
+    public void nextStage()
+    {
+        //GameManager.instance.NextStage();
+    }
+
+    public void goMenu(){
+        SceneManager.LoadScene("Menu");
     }
 }
