@@ -32,6 +32,12 @@ public class PowerUp : MonoBehaviour {
 			if (index == 1 && powerUpIndex != 1)
 				collider.sharedMaterial = p_default;
 			
+			if (index == 3 && powerUpIndex != 3)
+				this.GetComponent<Rigidbody2D>().mass = 1;
+			
+			if (index != 3 && powerUpIndex == 3)
+				this.GetComponent<Rigidbody2D>().mass = 2;
+			
 			index = powerUpIndex;
 		}
 	}

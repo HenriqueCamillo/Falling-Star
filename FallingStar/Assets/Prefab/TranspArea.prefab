@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8c52453c642de429e3c84de7ef0368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpIndex: 0
+  powerUpIndex: 2
   particles:
   - {fileID: 114537776050829368}
   - {fileID: 114848391305767112}

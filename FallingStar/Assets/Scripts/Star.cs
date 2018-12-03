@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Star : MonoBehaviour {
 	private Touch touch;
 	private Rigidbody2D rBody;
 	private Vector2 impulseDirection;
-	[SerializeField][Range(1f, 10f)] float impulseForce;
+	[SerializeField][Range(1f, 100f)] float impulseForce;
 	[SerializeField][Range(0f, 1f)] float slowMotionDuration;
-	[SerializeField] float shine;
+	[SerializeField] float maxShine;
+	private float shine;
 	private bool inSlowMotion;
 	private GameObject arrow;
 	private SpriteRenderer arrowSprite;
@@ -19,7 +21,18 @@ public class Star : MonoBehaviour {
 	[SerializeField][Range(1, 500)] float maxImpulse;
 	private Vector3 screenPoint;
 	[SerializeField][Range(1, 10)] float maxFreeFalling;
+	[SerializeField] Image shineBar;
+	[SerializeField] Camera cmCamera;
+	public bool canMove;
+	public GameObject gameOverScreen;
 
+	private float Shine {
+		get{return shine;}
+		set {
+			shine = value;
+			shineBar.fillAmount = shine / maxShine;
+		}
+	}
 	public Vector2 Impulse {
 		get{return impulse;}
 		set {
@@ -40,16 +53,15 @@ public class Star : MonoBehaviour {
 		rBody = GetComponent<Rigidbody2D>();
 		arrow = GameObject.Find("Arrow");
 		arrowSprite = arrow.gameObject.GetComponent<SpriteRenderer>();
+		Shine = maxShine;
 	}
 	
-	void MouseUpdate() {
-
-	}
 	void Update () {
 		#if UNITY_ANDROID && !UNITY_EDITOR
-			if (Input.touchCount > 0 && !inSlowMotion) {
+			if (Input.touchCount > 0 && !inSlowMotion && canMove) {
 				touch = Input.GetTouch(0);
 				inSlowMotion = true;
+				rBody.velocity = Vector3.zero;
 				StartCoroutine("CalculateImpulse");
 				Time.timeScale = 0.1f;
 				arrowSprite.enabled = true;
@@ -58,6 +70,7 @@ public class Star : MonoBehaviour {
 		#elif UNITY_EDITOR || UNITY_WSA
 			if (Input.GetMouseButtonDown(0) && !inSlowMotion) {
 				inSlowMotion = true;
+				rBody.velocity = Vector3.zero;
 				StartCoroutine("CalculateImpulse");
 				Time.timeScale = 0.1f;
 				arrowSprite.enabled = true;
@@ -74,6 +87,10 @@ public class Star : MonoBehaviour {
 			rBody.gravityScale = 1f;
 		}
 
+		if (Shine <= 0) {
+			canMove = false;
+			gameOverScreen.SetActive(true);
+		}
 	}
 
 	void SlowMotion() {
@@ -91,13 +108,12 @@ public class Star : MonoBehaviour {
 		#endif
 
 		screenPoint.z = 10f; // Distance from camera
-		impulseDirection = this.transform.position - Camera.main.ScreenToWorldPoint(screenPoint);
+		impulseDirection = this.transform.position - cmCamera.ScreenToWorldPoint(screenPoint);
 		Impulse = impulseDirection * impulseForce;
 		impulseDirection = impulseDirection * impulseForce;
 
 		Debug.Log(impulse.magnitude);
 		if (impulse.magnitude > maxImpulse) {
-			Debug.Log("Entrou");
 			impulse = impulse.normalized * maxImpulse;
 			Debug.Log(impulse.magnitude);
 		}
@@ -107,6 +123,6 @@ public class Star : MonoBehaviour {
 		Debug.DrawLine(impulse, this.transform.position, Color.green, 0.3f);
 		rBody.AddForce(impulse, ForceMode2D.Impulse);
 
-		shine -= Vector3.SqrMagnitude(impulseDirection) / impulseForce;
+		Shine -= Vector3.SqrMagnitude(impulseDirection) / impulseForce;
 	}
 }
