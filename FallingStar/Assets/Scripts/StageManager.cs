@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour {
 
     public static StageManager instance;
 
-    public StarBonus[] bonus;
+    public GameObject[] bonus;
 
-    //public Player player;
-    public GameObject player;
-    Vector3 playerStartPos;
+    public Text stageName;
 
     public int stars = 0;
 
@@ -21,7 +20,9 @@ public class StageManager : MonoBehaviour {
         else
             Destroy(this.gameObject);
 
-        playerStartPos = player.transform.position;
+        stageName.text = SceneManager.GetActiveScene().name;
+        foreach(GameObject gm in bonus)
+            gm.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,14 +31,17 @@ public class StageManager : MonoBehaviour {
     }
 
 	public void Reset (){
-        player.transform.position = playerStartPos;
-        stars = 0;
-        foreach (StarBonus b in bonus)
-            b.Reset();
-        
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 	public void addStar(){
+        bonus[stars].SetActive(true);
         stars++;
+        
+    }
+
+    public void endStage(){
+
     }
 }

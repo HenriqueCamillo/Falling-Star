@@ -19,7 +19,11 @@ public class Crashable : Interactable {
 	public override void effect(GameObject player){
 		if(player.GetComponent<PowerUp>().checkPowerUp(3)){
 			collider.enabled = false;
-			Invoke("DestroyPlatform", 0.03f);
+			this.GetComponent<SpriteRenderer>().enabled = false;
+			for(int i = 0; i < 3; i++)
+				this.transform.GetChild(i).gameObject.SetActive(true);
+			
+			Invoke("DestroyPlatform", 1.0f);
 		}
 		
 	}
