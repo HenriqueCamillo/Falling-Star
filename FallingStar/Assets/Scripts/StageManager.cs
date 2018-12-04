@@ -50,10 +50,11 @@ public class StageManager : MonoBehaviour {
 
     public void nextStage()
     {
-        //GameManager.instance.NextStage();
+        GameManager.instance.NextStage();
     }
 
     public void goMenu(){
-        SceneManager.LoadScene("Menu");
+        GameManager.instance.currentLevel = 0;
+        SceneManager.LoadScene(0);
     }
 }

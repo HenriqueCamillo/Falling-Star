@@ -30,6 +30,11 @@ public class Star : MonoBehaviour {
 		get{return shine;}
 		set {
 			shine = value;
+			if (shine <= 0){
+				canMove = false;
+				shine = 0;
+				gameOverScreen.SetActive(true);
+			}
 			if(shine > maxShine)
                 shine = maxShine;
             shineBar.fillAmount = shine / maxShine;
@@ -56,6 +61,7 @@ public class Star : MonoBehaviour {
 		arrow = GameObject.Find("Arrow");
 		arrowSprite = arrow.gameObject.GetComponent<SpriteRenderer>();
 		Shine = maxShine;
+		gameOverScreen.SetActive(false);
 	}
 	
 	void Update () {
@@ -89,10 +95,6 @@ public class Star : MonoBehaviour {
 			rBody.gravityScale = 1f;
 		}
 
-		if (Shine <= 0) {
-			canMove = false;
-			gameOverScreen.SetActive(true);
-		}
 	}
 
 	void SlowMotion() {
@@ -114,10 +116,8 @@ public class Star : MonoBehaviour {
 		Impulse = impulseDirection * impulseForce;
 		impulseDirection = impulseDirection * impulseForce;
 
-		Debug.Log(impulse.magnitude);
 		if (impulse.magnitude > maxImpulse) {
 			impulse = impulse.normalized * maxImpulse;
-			Debug.Log(impulse.magnitude);
 		}
 		arrowSize = impulse;
 	}
@@ -125,6 +125,6 @@ public class Star : MonoBehaviour {
 		Debug.DrawLine(impulse, this.transform.position, Color.green, 0.3f);
 		rBody.AddForce(impulse, ForceMode2D.Impulse);
 
-		Shine -= Vector3.SqrMagnitude(impulseDirection) / impulseForce;
+		Shine -= Vector3.SqrMagnitude(impulse);
 	}
 }

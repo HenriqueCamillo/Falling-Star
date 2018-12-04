@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance;
 	int[] stars;
 	int starTotal;
-	int currentLevel;
+	public int currentLevel;
 	[SerializeField] int levelQuantity;
 
 	public AudioSource audioSource;
@@ -15,10 +15,10 @@ public class GameManager : MonoBehaviour {
 
 	public void NextStage () {
 		currentLevel++;
+		Debug.Log(currentLevel);
 		if (currentLevel > levelQuantity)
 			currentLevel = 0;
 		SceneManager.LoadScene(currentLevel);		
-
 	}
 	void Awake () {
 		if (instance == null) {
