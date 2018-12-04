@@ -849,7 +849,8 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   audioClip:
   - {fileID: 8300000, guid: de32ce78d2ef5a9468600f4d5976efde, type: 3}
-  - {fileID: 8300000, guid: b05d6214336656346bc3394af12c3b66, type: 3}
+  - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
+  - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
 --- !u!4 &664801540
 Transform:
   m_ObjectHideFlags: 0
@@ -1332,8 +1333,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34, y: 0.001379}
-  m_SizeDelta: {x: 534.7, y: 335.27}
+  m_AnchoredPosition: {x: 42.225, y: -0.0011683}
+  m_SizeDelta: {x: 551.2, y: 347.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1094591872
 MonoBehaviour:
@@ -1356,7 +1357,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
-    m_FontSize: 40
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1367,9 +1368,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Art:\n\tMatheus Bragan\xE7a\nMusic:\n\tHenrique Matarazo Camillo\n\tWillian
-    Gonzaga Leodegario\nProgramming:\n\tHenrique Matarazo Camillo\n\tWillian Gonzaga
-    Leodegario\n"
+  m_Text: "Credits:\n\tArt:\n\t\tMatheus Bragan\xE7a\n\tLevel Design:\n\t\tMatheus
+    Bragan\xE7a\n\tMusic:\n\t\tHenrique Matarazo Camillo\n\t\tWillian Gonzaga Leodegario\n\tProgramming:\n\t\tHenrique
+    Matarazo Camillo\n\t\tWillian Gonzaga Leodegario\n"
 --- !u!222 &1094591873
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2512,7 +2513,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
