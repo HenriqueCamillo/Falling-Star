@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
 	[SerializeField] GameObject levelSelect;
+	[SerializeField] GameObject credits;
 
 	public void Play () {
 		levelSelect.SetActive(true);
@@ -12,6 +13,7 @@ public class Menu : MonoBehaviour {
 
 	public void Back () {
 		levelSelect.SetActive(false);
+		credits.SetActive(false);
 	}
 	
 	public void LoadLevel (int level) {
@@ -20,6 +22,9 @@ public class Menu : MonoBehaviour {
 		GameManager.instance.audioSource.PlayOneShot(GameManager.instance.audioClip[1]);
 		SceneManager.LoadScene(level);		
 	}
+	 public void Credits () {
+		credits.SetActive(true);
+	 }
 
 	public void Quit () {
 		Application.Quit();
