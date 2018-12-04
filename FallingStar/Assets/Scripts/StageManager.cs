@@ -11,6 +11,7 @@ public class StageManager : MonoBehaviour {
     public GameObject[] bonus;
 
     public GameObject finalScreen;
+    public GameObject pauseScreen;
 
     public Text stageName;
 
@@ -24,13 +25,16 @@ public class StageManager : MonoBehaviour {
 
         stageName.text = SceneManager.GetActiveScene().name;
         finalScreen.SetActive(false);
+        pauseScreen.SetActive(false);
         foreach(GameObject gm in bonus)
             gm.SetActive(false);
     }
 
     // Update is called once per frame
     void Update() {
-
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            pauseScreen.SetActive(true);
+        }
     }
 
 	public void Reset (){
@@ -41,7 +45,6 @@ public class StageManager : MonoBehaviour {
 	public void addStar(){
         bonus[stars].SetActive(true);
         stars++;
-        
     }
 
     public void endStage(){
@@ -55,6 +58,9 @@ public class StageManager : MonoBehaviour {
 
     public void goMenu(){
         GameManager.instance.currentLevel = 0;
+        GameManager.instance.audioSource.clip = GameManager.instance.audioClip[0];
+        GameManager.instance.audioSource.Stop();
+        GameManager.instance.audioSource.Play();
         SceneManager.LoadScene(0);
     }
 }

@@ -146,6 +146,10 @@ MonoBehaviour:
   maxImpulse: 15
   maxFreeFalling: 5
   shineBar: {fileID: 0}
+  cmCamera: {fileID: 0}
+  canMove: 0
+  gameOverScreen: {fileID: 0}
+  maxVelocity: 20
 --- !u!212 &212005583196844160
 SpriteRenderer:
   m_ObjectHideFlags: 1

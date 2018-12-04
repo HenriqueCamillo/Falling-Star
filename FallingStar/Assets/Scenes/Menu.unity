@@ -844,11 +844,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc84c273df307b7469bd3f927af9b196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 0
   levelQuantity: 3
   audioSource: {fileID: 0}
   audioClip:
-  - {fileID: 8300000, guid: 47fefad2191c2af48bba44334dea7ae6, type: 3}
-  - {fileID: 8300000, guid: 47fefad2191c2af48bba44334dea7ae6, type: 3}
+  - {fileID: 8300000, guid: de32ce78d2ef5a9468600f4d5976efde, type: 3}
+  - {fileID: 8300000, guid: b05d6214336656346bc3394af12c3b66, type: 3}
 --- !u!4 &664801540
 Transform:
   m_ObjectHideFlags: 0
@@ -2446,7 +2447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1980408834
 RectTransform:
   m_ObjectHideFlags: 0
