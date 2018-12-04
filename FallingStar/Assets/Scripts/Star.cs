@@ -26,11 +26,13 @@ public class Star : MonoBehaviour {
 	public bool canMove;
 	public GameObject gameOverScreen;
 
-	private float Shine {
+	public float Shine {
 		get{return shine;}
 		set {
 			shine = value;
-			shineBar.fillAmount = shine / maxShine;
+			if(shine > maxShine)
+                shine = maxShine;
+            shineBar.fillAmount = shine / maxShine;
 		}
 	}
 	public Vector2 Impulse {
