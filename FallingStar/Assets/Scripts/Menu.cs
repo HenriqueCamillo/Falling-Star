@@ -20,6 +20,7 @@ public class Menu : MonoBehaviour {
 		DontDestroyOnLoad(GameManager.instance);
 		GameManager.instance.audioSource.Stop();
 		GameManager.instance.audioSource.PlayOneShot(GameManager.instance.audioClip[1]);
+		GameManager.instance.currentLevel = level;
 		SceneManager.LoadScene(level);		
 	}
 	 public void Credits () {
