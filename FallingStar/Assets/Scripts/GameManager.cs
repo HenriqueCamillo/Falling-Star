@@ -23,10 +23,4 @@ public class GameManager : MonoBehaviour {
 		audioSource.clip = audioClip[0];
 		audioSource.Play();
 	}
-	
-	void Update() {
-		if (audioSource.isPlaying) {
-			Debug.Log("Playing");
-		}
-	}
 }

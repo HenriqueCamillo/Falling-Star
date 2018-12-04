@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1557873524989318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.2, y: 3.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4341783078934710}
@@ -139,12 +139,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab80d9b8e339b5e458fd19a0f3569358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impulseForce: 10
+  impulseForce: 5
   slowMotionDuration: 1
-  shine: 100
-  arrowSizeController: 6
-  maxImpulse: 10
+  maxShine: 1000
+  arrowSizeController: 10
+  maxImpulse: 15
   maxFreeFalling: 5
+  shineBar: {fileID: 0}
 --- !u!212 &212005583196844160
 SpriteRenderer:
   m_ObjectHideFlags: 1
