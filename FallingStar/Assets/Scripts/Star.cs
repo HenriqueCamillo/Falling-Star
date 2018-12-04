@@ -22,7 +22,9 @@ public class Star : MonoBehaviour {
 	private Vector3 screenPoint;
 	[SerializeField][Range(1, 10)] float maxFreeFalling;
 	[SerializeField] Image shineBar;
-	[SerializeField] Camera camera;
+	[SerializeField] Camera cmCamera;
+	public bool canMove;
+	public GameObject gameOverScreen;
 
 	private float Shine {
 		get{return shine;}
@@ -56,7 +58,7 @@ public class Star : MonoBehaviour {
 	
 	void Update () {
 		#if UNITY_ANDROID && !UNITY_EDITOR
-			if (Input.touchCount > 0 && !inSlowMotion) {
+			if (Input.touchCount > 0 && !inSlowMotion && canMove) {
 				touch = Input.GetTouch(0);
 				inSlowMotion = true;
 				rBody.velocity = Vector3.zero;
@@ -85,6 +87,10 @@ public class Star : MonoBehaviour {
 			rBody.gravityScale = 1f;
 		}
 
+		if (Shine <= 0) {
+			canMove = false;
+			gameOverScreen.SetActive(true);
+		}
 	}
 
 	void SlowMotion() {
@@ -102,7 +108,7 @@ public class Star : MonoBehaviour {
 		#endif
 
 		screenPoint.z = 10f; // Distance from camera
-		impulseDirection = this.transform.position - camera.ScreenToWorldPoint(screenPoint);
+		impulseDirection = this.transform.position - cmCamera.ScreenToWorldPoint(screenPoint);
 		Impulse = impulseDirection * impulseForce;
 		impulseDirection = impulseDirection * impulseForce;
 
