@@ -15,6 +15,7 @@ public class PowerUp : MonoBehaviour {
 	void Start () {
 		spr = this.GetComponent<SpriteRenderer>();
 		collider = this.GetComponent<Collider2D>();
+		collider.sharedMaterial = p_default;
 	}
 	
 	// Update is called once per frame

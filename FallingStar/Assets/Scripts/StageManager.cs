@@ -57,10 +57,7 @@ public class StageManager : MonoBehaviour {
     }
 
     public void goMenu(){
-        GameManager.instance.currentLevel = 0;
-        GameManager.instance.audioSource.clip = GameManager.instance.audioClip[0];
         GameManager.instance.audioSource.Stop();
-        GameManager.instance.audioSource.Play();
         SceneManager.LoadScene(0);
     }
 }

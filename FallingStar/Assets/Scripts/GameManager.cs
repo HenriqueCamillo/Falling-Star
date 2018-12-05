@@ -19,11 +19,6 @@ public class GameManager : MonoBehaviour {
 		if (currentLevel > levelQuantity)
 			currentLevel = 0;
 		SceneManager.LoadScene(currentLevel);		
-		if (currentLevel == 0) {
-			audioSource.clip = audioClip[0];
-			audioSource.Stop();
-			audioSource.Play();
-		}
 	}
 	void Awake () {
 		if (instance == null) {
@@ -35,5 +30,9 @@ public class GameManager : MonoBehaviour {
 		audioSource = GetComponent<AudioSource>();
 		audioSource.clip = audioClip[0];
 		audioSource.Play();
+	}
+
+	public void SaveGame () {
+		
 	}
 }
