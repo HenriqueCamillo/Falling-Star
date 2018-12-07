@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
 	[SerializeField] GameObject levelSelect;
@@ -21,6 +20,7 @@ public class Menu : MonoBehaviour {
 		credits.SetActive(false);
 	}
 	
+	/*
 	public void LoadLevel (int level) {
 		DontDestroyOnLoad(GameManager.instance);
 		GameManager.instance.audioSource.Stop();
@@ -28,6 +28,8 @@ public class Menu : MonoBehaviour {
 		GameManager.instance.currentLevel = level;
 		SceneManager.LoadScene(level);		
 	}
+	*/
+
 	 public void Credits () {
 		credits.SetActive(true);
 	 }
