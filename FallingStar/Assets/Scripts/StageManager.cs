@@ -49,6 +49,7 @@ public class StageManager : MonoBehaviour {
 
     public void endStage(){
         finalScreen.SetActive(true);
+        GameManager.instance.SaveGame(stars);
     }
 
     public void nextStage()
@@ -58,6 +59,7 @@ public class StageManager : MonoBehaviour {
 
     public void goMenu(){
         GameManager.instance.audioSource.Stop();
+		GameManager.instance.audioSource.PlayOneShot(GameManager.instance.audioClip[0]);
         SceneManager.LoadScene(0);
     }
 }
