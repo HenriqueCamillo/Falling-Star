@@ -825,6 +825,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de32ce78d2ef5a9468600f4d5976efde, type: 3}
   - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
   - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
+  inGame: 0
 --- !u!4 &664801540
 Transform:
   m_ObjectHideFlags: 0
@@ -1346,8 +1347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42.225, y: -5.6605}
-  m_SizeDelta: {x: 551.2, y: 360.34}
+  m_AnchoredPosition: {x: -55.4, y: -41.9}
+  m_SizeDelta: {x: 356, y: 432.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1094591872
 MonoBehaviour:

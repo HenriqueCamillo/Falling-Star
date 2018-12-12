@@ -6,26 +6,16 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 public class GameManager : MonoBehaviour {
-	public Save save;
 	public static GameManager instance;
-	// public int[] stars;
+	public Save save;
 	public int starTotal;
 	public int currentLevel;
 	public int numberOfLevels;
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;
+	public bool inGame;
 	private Stream saveStream;
 	private IFormatter formatter;
-
-	public void NextStage () {
-		currentLevel++;
-		if (currentLevel > numberOfLevels) {
-			currentLevel = 0;
-			audioSource.Stop();
-			audioSource.PlayOneShot(audioClip[0]);
-		}
-		SceneManager.LoadScene(currentLevel);		
-	}
 
 	void Awake () {
 		if (instance == null) {
@@ -35,8 +25,11 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (instance == this) {
+			inGame = false;
+
 			audioSource = GetComponent<AudioSource>();
-			audioSource.PlayOneShot(audioClip[0]);
+			audioSource.clip = audioClip[0];
+			audioSource.Play();
 
 			formatter = new BinaryFormatter(); 
 
@@ -60,6 +53,18 @@ public class GameManager : MonoBehaviour {
 				Debug.Log("Level " + entry.Key + ": " + entry.Value + " stars");
 			}
 		}
+	}
+
+	public void NextStage () {
+		currentLevel++;
+		if (currentLevel > numberOfLevels) {
+			currentLevel = 0;
+			audioSource.Stop();
+			audioSource.PlayOneShot(audioClip[0]);
+		} else {
+			GameManager.instance.inGame = true;
+		}
+		SceneManager.LoadScene(currentLevel);		
 	}
 
 	public void SaveGame (int levelStars) {

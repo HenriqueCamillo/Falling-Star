@@ -32,8 +32,10 @@ public class LevelLoad: MonoBehaviour {
 
 	public void LoadLevel () {
 		DontDestroyOnLoad(GameManager.instance);
+		GameManager.instance.inGame = true;
 		GameManager.instance.audioSource.Stop();
-		GameManager.instance.audioSource.PlayOneShot(GameManager.instance.audioClip[1]);
+		GameManager.instance.audioSource.clip = GameManager.instance.audioClip[1];
+		GameManager.instance.audioSource.Play();
 		GameManager.instance.currentLevel = thisLevel;
 		SceneManager.LoadScene(thisLevel);		
 	}
