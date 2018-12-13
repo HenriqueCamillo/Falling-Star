@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
@@ -9,6 +10,7 @@ public class Menu : MonoBehaviour {
 	[SerializeField] GameObject deleteSaveConfirmation;
 	[SerializeField] GameObject sucessfullyDeleted;
 	[SerializeField] GameObject credits;
+	[SerializeField] Text numberOfStars;
 
 	void Start () {
 		credits.SetActive(false);
@@ -16,6 +18,9 @@ public class Menu : MonoBehaviour {
 		options.SetActive(false);
 		deleteSaveConfirmation.SetActive(false);
 		sucessfullyDeleted.SetActive(false);
+
+		GameManager.instance.CalculateStarTotal();
+		numberOfStars.text = "x" + GameManager.instance.starTotal.ToString();
 	}
 
 	public void Play () {

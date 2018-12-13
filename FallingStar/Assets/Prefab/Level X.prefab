@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisLevel: 1
-  levelName: {fileID: 0}
   star1: {fileID: 1927215338800094}
   star2: {fileID: 1172238319308462}
   star3: {fileID: 1771675981181128}
@@ -291,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08627451, g: 0.1764706, b: 0.30980393, a: 1}
+  m_Color: {r: 0.03137255, g: 0.0627451, b: 0.10980393, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour {
 		if (currentLevel > numberOfLevels) {
 			currentLevel = 0;
 			audioSource.Stop();
-			audioSource.PlayOneShot(audioClip[0]);
+			audioSource.clip = audioClip[0];
+			audioSource.Play();
 		} else {
 			GameManager.instance.inGame = true;
 		}
@@ -81,14 +82,23 @@ public class GameManager : MonoBehaviour {
 
 		formatter.Serialize(saveStream, save);
 		saveStream.Close();
+
+		CalculateStarTotal();
 	}
 
 	public void ResetSaveData () {
-		saveStream = new FileStream(Application.persistentDataPath + "\\Save.bin", FileMode.Open, FileAccess.Write);
+		saveStream = new FileStream(Application.persistentDataPath +"\\Save.bin", FileMode.Open, FileAccess.Write);
 
 		save.stars.Clear();
 
 		formatter.Serialize(saveStream, save);
 		saveStream.Close();
+	}
+	
+	public void CalculateStarTotal () {
+		starTotal = 0;
+		foreach (KeyValuePair<int, int> level in save.stars) {
+			starTotal += save.stars[level.Key];
+		}
 	}
 }
