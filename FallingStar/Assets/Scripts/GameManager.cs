@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class GameManager : MonoBehaviour {
 	public static GameManager instance;
 	public Save save;
-	public int starTotal;
+	public int numberOfStars;
 	public int currentLevel;
 	public int numberOfLevels;
 	public AudioSource audioSource;
@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SaveGame (int levelStars) {
+		// CalculateNumberOfStars();
 		saveStream = new FileStream(Application.persistentDataPath + "\\Save.bin", FileMode.Open, FileAccess.Write);
 
 		if (save.stars.ContainsKey(currentLevel)) {
@@ -82,8 +83,6 @@ public class GameManager : MonoBehaviour {
 
 		formatter.Serialize(saveStream, save);
 		saveStream.Close();
-
-		CalculateStarTotal();
 	}
 
 	public void ResetSaveData () {
@@ -95,10 +94,10 @@ public class GameManager : MonoBehaviour {
 		saveStream.Close();
 	}
 	
-	public void CalculateStarTotal () {
-		starTotal = 0;
+	public void CalculateNumberOfStars () {
+		numberOfStars = 0;
 		foreach (KeyValuePair<int, int> level in save.stars) {
-			starTotal += save.stars[level.Key];
+			numberOfStars += save.stars[level.Key];
 		}
 	}
 }

@@ -19,8 +19,8 @@ public class Menu : MonoBehaviour {
 		deleteSaveConfirmation.SetActive(false);
 		sucessfullyDeleted.SetActive(false);
 
-		GameManager.instance.CalculateStarTotal();
-		numberOfStars.text = "x" + GameManager.instance.starTotal.ToString();
+		GameManager.instance.CalculateNumberOfStars();
+		numberOfStars.text = "x" + GameManager.instance.numberOfStars.ToString();
 	}
 
 	public void Play () {

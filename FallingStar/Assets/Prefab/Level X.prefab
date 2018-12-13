@@ -166,6 +166,9 @@ MonoBehaviour:
   star1: {fileID: 1927215338800094}
   star2: {fileID: 1172238319308462}
   star3: {fileID: 1771675981181128}
+  buttonScript: {fileID: 114435983027015346}
+  buttonImage: {fileID: 114575966884982884}
+  requiredStars: 0
 --- !u!114 &114435983027015346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,7 +493,7 @@ RectTransform:
   m_GameObject: {fileID: 1281687149609182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3596476, y: 1.3596476, z: 1.3596476}
+  m_LocalScale: {x: 0.81481683, y: 0.81481683, z: 0.81481683}
   m_Children:
   - {fileID: 4814236578055676}
   - {fileID: 4858191570472828}
@@ -501,8 +504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -121, y: 66}
-  m_SizeDelta: {x: -713.71, y: -341.6}
+  m_AnchoredPosition: {x: -72.563675, y: 11.805923}
+  m_SizeDelta: {x: -239.00995, y: -104.138596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224371928134330844
 RectTransform:
