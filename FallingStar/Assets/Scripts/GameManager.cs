@@ -82,4 +82,13 @@ public class GameManager : MonoBehaviour {
 		formatter.Serialize(saveStream, save);
 		saveStream.Close();
 	}
+
+	public void ResetSaveData () {
+		saveStream = new FileStream(Application.persistentDataPath + "\\Save.bin", FileMode.Open, FileAccess.Write);
+
+		save.stars.Clear();
+
+		formatter.Serialize(saveStream, save);
+		saveStream.Close();
+	}
 }

@@ -10,19 +10,24 @@ public class LevelLoad: MonoBehaviour {
 
 	void Start () {
 		transform.Find("Button").Find("Text").gameObject.GetComponent<Text>().text = this.gameObject.name;
-
-		if (GameManager.instance.save.stars[thisLevel] == 3) {
-			star1.SetActive(true);
-			star2.SetActive(true);
-			star3.SetActive(true);
-		} else if (GameManager.instance.save.stars[thisLevel] == 2) {
-			star1.SetActive(true);
-			star2.SetActive(true);
-			star3.SetActive(false);
-		} else if (GameManager.instance.save.stars[thisLevel] == 2) {
-			star1.SetActive(true);
-			star2.SetActive(false);
-			star3.SetActive(false);
+		if (GameManager.instance.save.stars.ContainsKey(thisLevel)){
+			if (GameManager.instance.save.stars[thisLevel] == 3) {
+				star1.SetActive(true);
+				star2.SetActive(true);
+				star3.SetActive(true);
+			} else if (GameManager.instance.save.stars[thisLevel] == 2) {
+				star1.SetActive(true);
+				star2.SetActive(true);
+				star3.SetActive(false);
+			} else if (GameManager.instance.save.stars[thisLevel] == 1) {
+				star1.SetActive(true);
+				star2.SetActive(false);
+				star3.SetActive(false);
+			} else {
+				star1.SetActive(false);
+				star2.SetActive(false);
+				star3.SetActive(false);
+			}
 		} else {
 			star1.SetActive(false);
 			star2.SetActive(false);
