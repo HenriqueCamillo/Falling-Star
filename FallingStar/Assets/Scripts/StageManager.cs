@@ -13,6 +13,7 @@ public class StageManager : MonoBehaviour {
     public GameObject finalScreen;
     public GameObject pauseScreen;
     public GameObject endGameScreen;
+	public GameObject gameOverScreen;
     public Text stageName;
     public int stars = 0;
     private float currentTimeScale;
@@ -30,6 +31,7 @@ public class StageManager : MonoBehaviour {
         finalScreen.SetActive(false);
         pauseScreen.SetActive(false);
         endGameScreen.SetActive(false);
+		gameOverScreen.SetActive(false);
 
         foreach(GameObject gm in bonus)
             gm.SetActive(false);
@@ -41,7 +43,11 @@ public class StageManager : MonoBehaviour {
         }
     }
 
-    public void pauseGame() {
+    public void GameOver() {
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
+    }
+    public void pauseGame () {
         if (gamePaused && !GameManager.instance.inGame) {
             gamePaused = false;
             GameManager.instance.inGame = true;

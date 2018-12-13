@@ -4,27 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Star : MonoBehaviour {
-	private Touch touch;
+	[SerializeField] Camera cmCamera;
+	private Vector3 screenPoint;
 	private Rigidbody2D rBody;
 	private Vector2 impulseDirection;
+	private Vector2 impulse;
 	[SerializeField][Range(1f, 100f)] float impulseForce;
-	[SerializeField][Range(0f, 1f)] float slowMotionDuration;
+	[SerializeField][Range(1, 500)] float maxImpulse;
 	[SerializeField] float maxShine;
 	private float shine;
+	private Image shineBar;
+	[SerializeField][Range(0f, 1f)] float slowMotionDuration;
 	private bool inSlowMotion;
+	[SerializeField] float maxVelocity;
+	[SerializeField][Range(1f, 50f)] float arrowSizeController;
 	private GameObject arrow;
 	private SpriteRenderer arrowSprite;
 	private float arrowAngle;
-	[SerializeField][Range(1f, 50f)] float arrowSizeController;
 	private Vector2 arrowSize;
-	private Vector2 impulse;
-	[SerializeField][Range(1, 500)] float maxImpulse;
-	private Vector3 screenPoint;
 	[SerializeField][Range(1, 10)] float maxFreeFalling;
-	[SerializeField] Image shineBar;
-	[SerializeField] Camera cmCamera;
-	public GameObject gameOverScreen;
-	[SerializeField] float maxVelocity;
+	private RaycastHit2D hit;
+	private bool canImpulse;
 
 	public float Shine {
 		get{return shine;}
@@ -33,27 +33,12 @@ public class Star : MonoBehaviour {
 			if (shine <= 0){
 				shine = 0;
 				GameManager.instance.inGame = false;
-				Time.timeScale = 0f;
-				gameOverScreen.SetActive(true);
+				StageManager.instance.GameOver();
 			}
-			if(shine > maxShine)
+			if (shine > maxShine) {
                 shine = maxShine;
+			}
             shineBar.fillAmount = shine / maxShine;
-		}
-	}
-	public Vector2 Impulse {
-		get{return impulse;}
-		set {
-			impulse = value;
-			
-			arrowAngle = Vector2.Angle(Vector2.right, impulse);
-			if (impulse.y < 0)
-				arrowAngle += 2 * (180 - arrowAngle);
-
-			arrow.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 
-													this.transform.eulerAngles.y, arrowAngle);
-			arrow.transform.localScale = new Vector3 (arrowSize.magnitude / arrowSizeController,
-											arrow.transform.localScale.y, arrow.transform.localScale.z);
 		}
 	}
 	
@@ -61,12 +46,23 @@ public class Star : MonoBehaviour {
 		rBody = GetComponent<Rigidbody2D>();
 		arrow = GameObject.Find("Arrow");
 		arrowSprite = arrow.gameObject.GetComponent<SpriteRenderer>();
+		shineBar = GameObject.FindGameObjectWithTag("ShineBar")	.GetComponent<Image>();
+
 		Shine = maxShine;
-		gameOverScreen.SetActive(false);
+		canImpulse = true;
 	}
-	
+
 	void Update () {
-		if (Input.GetMouseButtonDown(0) && !inSlowMotion && GameManager.instance.inGame) {
+		hit = Physics2D.Raycast(cmCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.up);
+		if (hit.collider && hit.collider.name == "Pause") {
+			canImpulse = false;
+		} else {
+			canImpulse = true;
+		}
+
+		canImpulse = canImpulse & GameManager.instance.inGame;
+
+		if (Input.GetMouseButtonDown(0) && !inSlowMotion && canImpulse) {
 			inSlowMotion = true;
 			rBody.velocity = Vector3.zero;
 			StartCoroutine("CalculateImpulse");
@@ -87,8 +83,25 @@ public class Star : MonoBehaviour {
 		if (rBody.velocity.magnitude > maxVelocity) {
 			rBody.velocity = rBody.velocity.normalized * maxVelocity;
 		}
+
 	}
 
+	public Vector2 Impulse {
+		get{return impulse;}
+		set {
+			impulse = value;
+			
+			arrowAngle = Vector2.Angle(Vector2.right, impulse);
+			if (impulse.y < 0)
+				arrowAngle += 2 * (180 - arrowAngle);
+
+			arrow.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 
+													this.transform.eulerAngles.y, arrowAngle);
+			arrow.transform.localScale = new Vector3 (arrowSize.magnitude / arrowSizeController,
+											arrow.transform.localScale.y, arrow.transform.localScale.z);
+		}
+	}
+	
 	void SlowMotion() {
 		Time.timeScale = 1f;
 		inSlowMotion = false;
@@ -110,7 +123,7 @@ public class Star : MonoBehaviour {
 		arrowSize = impulse;
 	}
 	void ImpulseStar() {
-		Debug.DrawLine(impulse, this.transform.position, Color.green, 0.3f);
+		Debug.DrawLine(this.transform.position,impulse, Color.green, 0.3f);
 		rBody.AddForce(impulse, ForceMode2D.Impulse);
 
 		Shine -= Vector3.SqrMagnitude(impulse);
