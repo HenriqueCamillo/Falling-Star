@@ -12,8 +12,12 @@ public class LevelLoad: MonoBehaviour {
 
 	[SerializeField] int requiredStars;
 
+	/// <summary>
+	/// Displays the number of stars gotten in the level.
+	/// Check if the level is already unlocked or not, allowing or not the player to play it
+	/// </summary>
 	void Start () {
-		// Displays the number of stars gotten in the level
+		// Displays the number of stars gotten in the level, activating or deactivating the star images.
 		transform.Find("Button").Find("Text").gameObject.GetComponent<Text>().text = this.gameObject.name;
 		if (GameManager.instance.save.stars.ContainsKey(thisLevel)){
 			if (GameManager.instance.save.stars[thisLevel] == 3) {
@@ -39,8 +43,11 @@ public class LevelLoad: MonoBehaviour {
 			star3.SetActive(false);
 		}
 
-		// Check if number of stars gotten is equal or higher than the number of stars required to play the level
-		GameManager.instance.CalculateNumberOfStars();
+		/* Check if number of stars gotten is equal or higher than the number of stars required to play the level,
+		and then, enables or disables the button, and changes its opacity to indicate wheter it's active or not. */
+		requiredStars = GameManager.instance.starRequirement[thisLevel-1];
+		Debug.Log("Level " + thisLevel + " requires " + requiredStars + " stars");
+		
 		if (GameManager.instance.numberOfStars >= requiredStars) {
 			buttonScript.enabled = true;
 
@@ -58,13 +65,20 @@ public class LevelLoad: MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Loads level related to this button, and changes the music.
+	/// </summary>
 	public void LoadLevel () {
 		DontDestroyOnLoad(GameManager.instance);
-		GameManager.instance.inGame = true;
+		
+		// Changes music
 		GameManager.instance.audioSource.Stop();
 		GameManager.instance.audioSource.clip = GameManager.instance.audioClip[1];
 		GameManager.instance.audioSource.Play();
+
+		GameManager.instance.inGame = true;
 		GameManager.instance.currentLevel = thisLevel;
+
 		SceneManager.LoadScene(thisLevel);		
 	}
 }

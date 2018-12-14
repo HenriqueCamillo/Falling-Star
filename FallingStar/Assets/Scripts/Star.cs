@@ -24,7 +24,7 @@ public class Star : MonoBehaviour {
 	private Vector2 arrowSize;
 	[SerializeField][Range(1, 10)] float maxFreeFalling;
 	private RaycastHit2D hit;
-	private bool canImpulse;
+	private bool canImpulse = true;
 
 	public float Shine {
 		get{return shine;}
@@ -49,7 +49,6 @@ public class Star : MonoBehaviour {
 		shineBar = GameObject.FindGameObjectWithTag("ShineBar")	.GetComponent<Image>();
 
 		Shine = maxShine;
-		canImpulse = true;
 	}
 
 	void Update () {

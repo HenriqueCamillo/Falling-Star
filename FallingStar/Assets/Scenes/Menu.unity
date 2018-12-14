@@ -1336,6 +1336,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.81481683
       objectReference: {fileID: 0}
+    - target: {fileID: 114390319916006084, guid: 21800f37a25058945b3f9d9160b794e0,
+        type: 2}
+      propertyPath: requiredStars
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
   m_IsPrefabAsset: 0
@@ -1884,15 +1889,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc84c273df307b7469bd3f927af9b196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starTotal: 0
+  numberOfStars: 0
   currentLevel: 0
   numberOfLevels: 3
   audioSource: {fileID: 0}
   audioClip:
   - {fileID: 8300000, guid: de32ce78d2ef5a9468600f4d5976efde, type: 3}
   - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
-  - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
   inGame: 0
+  starRequirement: 000000000200000004000000
 --- !u!4 &664801540
 Transform:
   m_ObjectHideFlags: 0
@@ -2265,36 +2270,10 @@ Prefab:
       propertyPath: m_Name
       value: Level 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1927215338800094, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1172238319308462, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1281687149609182, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
-      propertyPath: m_IsActive
+    - target: {fileID: 114575966884982884, guid: 21800f37a25058945b3f9d9160b794e0,
+        type: 2}
+      propertyPath: m_Color.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1771675981181128, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224093620358677370, guid: 21800f37a25058945b3f9d9160b794e0,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.81481683
-      objectReference: {fileID: 0}
-    - target: {fileID: 224093620358677370, guid: 21800f37a25058945b3f9d9160b794e0,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.81481683
-      objectReference: {fileID: 0}
-    - target: {fileID: 224093620358677370, guid: 21800f37a25058945b3f9d9160b794e0,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.81481683
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
@@ -3910,7 +3889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1751250334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4536,6 +4515,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.z
       value: 0.81481683
+      objectReference: {fileID: 0}
+    - target: {fileID: 114390319916006084, guid: 21800f37a25058945b3f9d9160b794e0,
+        type: 2}
+      propertyPath: requiredStars
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}

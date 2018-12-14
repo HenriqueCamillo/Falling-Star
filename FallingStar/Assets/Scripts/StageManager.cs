@@ -8,17 +8,16 @@ public class StageManager : MonoBehaviour {
 
     public static StageManager instance;
 
-    public GameObject[] bonus;
-
-    public GameObject finalScreen;
-    public GameObject pauseScreen;
-    public GameObject endGameScreen;
-	public GameObject gameOverScreen;
+    [SerializeField] GameObject[] bonus;
+    [SerializeField] GameObject finalScreen;
+    [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject endGameScreen;
+	[SerializeField] GameObject gameOverScreen;
+	public GameObject insufficientStars;
     public Text stageName;
     public int stars = 0;
     private float currentTimeScale;
     private bool gamePaused;
-
     void Awake() {
         if (instance == null)
             instance = this;
@@ -32,14 +31,18 @@ public class StageManager : MonoBehaviour {
         pauseScreen.SetActive(false);
         endGameScreen.SetActive(false);
 		gameOverScreen.SetActive(false);
+		insufficientStars.SetActive(false);
 
         foreach(GameObject gm in bonus)
             gm.SetActive(false);
     }
 
+    /// <summary>
+    /// Checks if pause button is pressed. If so, calls Pause function. 
+    /// </summary>
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            pauseGame();
+            PauseGame();
         }
     }
 
@@ -47,12 +50,16 @@ public class StageManager : MonoBehaviour {
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
     }
-    public void pauseGame () {
+
+    /// <summary>
+    /// Pauses the game. If it's already paused, resumes it.
+    /// </summary>
+    public void PauseGame () {
         if (gamePaused && !GameManager.instance.inGame) {
             gamePaused = false;
             GameManager.instance.inGame = true;
-            Time.timeScale = currentTimeScale;
             pauseScreen.SetActive(false);
+            Time.timeScale = currentTimeScale;
         } else if (!gamePaused && GameManager.instance.inGame) {
             gamePaused = true;
             GameManager.instance.inGame = false;
@@ -62,11 +69,6 @@ public class StageManager : MonoBehaviour {
         }
     }
 
-    private void Resume () {
-		GameManager.instance.inGame = true;
-        Time.timeScale = currentTimeScale;
-        pauseScreen.SetActive(false);
-    }
 
 	public void Reset (){
         Time.timeScale = 1.0f;

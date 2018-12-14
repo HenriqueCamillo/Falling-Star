@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour {
 	public int numberOfLevels;
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;
-	public bool inGame;
+	public bool inGame = false;
 	private Stream saveStream;
-	private IFormatter formatter;
+	private IFormatter formatter = new BinaryFormatter();
+	public List<int> starRequirement = new List<int>();
 
 	void Awake () {
 		if (instance == null) {
@@ -25,13 +26,10 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (instance == this) {
-			inGame = false;
-
 			audioSource = GetComponent<AudioSource>();
 			audioSource.clip = audioClip[0];
 			audioSource.Play();
 
-			formatter = new BinaryFormatter(); 
 
 			if (File.Exists(Application.persistentDataPath + "\\Save.bin")) {
 				saveStream = new FileStream(Application.persistentDataPath + "\\Save.bin", FileMode.Open, FileAccess.Read);
@@ -55,23 +53,36 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Loads next stage
+	/// </summary>
 	public void NextStage () {
 		currentLevel++;
-		if (currentLevel > numberOfLevels) {
-			currentLevel = 0;
-			audioSource.Stop();
-			audioSource.clip = audioClip[0];
-			audioSource.Play();
+		// if (currentLevel > numberOfLevels) {
+		// 	currentLevel = 0;
+		// 	audioSource.Stop();
+		// 	audioSource.clip = audioClip[0];
+		// 	audioSource.Play();
+		// 	SceneManager.LoadScene(currentLevel);
+		// } else 
+		if (numberOfStars < starRequirement[currentLevel-1]) {
+			StageManager.instance.insufficientStars.SetActive(true);
 		} else {
 			GameManager.instance.inGame = true;
+			SceneManager.LoadScene(currentLevel);
 		}
-		SceneManager.LoadScene(currentLevel);		
 	}
 
+	/// <summary>
+	/// Updates the number of stars gotten until now.
+	/// Replaces the number of stars of the current level if it's higher than the previous value.
+	/// Writes the save dictionary data to the save file (in binary format)
+	/// </summary>
+	/// <param name="levelStars">The number of stars gotten in the current level</param>
 	public void SaveGame (int levelStars) {
-		// CalculateNumberOfStars();
-		saveStream = new FileStream(Application.persistentDataPath + "\\Save.bin", FileMode.Open, FileAccess.Write);
+		CalculateNumberOfStars();
 
+		// Replaces value if higher than previous
 		if (save.stars.ContainsKey(currentLevel)) {
 			if(levelStars > save.stars[currentLevel]) {
 				save.stars[currentLevel] = levelStars;
@@ -81,10 +92,15 @@ public class GameManager : MonoBehaviour {
 			save.stars[currentLevel] = levelStars;
 		}
 
+		// Writes data to save file
+		saveStream = new FileStream(Application.persistentDataPath + "\\Save.bin", FileMode.Open, FileAccess.Write);
 		formatter.Serialize(saveStream, save);
 		saveStream.Close();
 	}
 
+	/// <summary>
+	/// Resets the save dictionary and writes changes to the save file (in binary format)
+	/// </summary>
 	public void ResetSaveData () {
 		saveStream = new FileStream(Application.persistentDataPath +"\\Save.bin", FileMode.Open, FileAccess.Write);
 
@@ -94,6 +110,9 @@ public class GameManager : MonoBehaviour {
 		saveStream.Close();
 	}
 	
+	/// <summary>
+	/// Iterates in the save dictionary and count all stars
+	/// </summary>
 	public void CalculateNumberOfStars () {
 		numberOfStars = 0;
 		foreach (KeyValuePair<int, int> level in save.stars) {
