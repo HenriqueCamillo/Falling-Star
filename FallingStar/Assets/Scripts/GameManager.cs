@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+
 public class GameManager : MonoBehaviour {
 	public static GameManager instance;
 	public Save save;
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour {
 		// 	audioSource.Play();
 		// 	SceneManager.LoadScene(currentLevel);
 		// } else 
+		CalculateNumberOfStars();
 		if (numberOfStars < starRequirement[currentLevel-1]) {
 			StageManager.instance.insufficientStars.SetActive(true);
 		} else {

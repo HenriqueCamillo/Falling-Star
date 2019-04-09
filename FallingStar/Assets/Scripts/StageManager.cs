@@ -18,6 +18,7 @@ public class StageManager : MonoBehaviour {
     public int stars = 0;
     private float currentTimeScale;
     private bool gamePaused;
+    
     void Awake() {
         if (instance == null)
             instance = this;
