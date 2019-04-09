@@ -139,16 +139,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab80d9b8e339b5e458fd19a0f3569358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impulseForce: 5
-  slowMotionDuration: 1
-  maxShine: 1000
-  arrowSizeController: 10
-  maxImpulse: 15
-  maxFreeFalling: 5
-  shineBar: {fileID: 0}
   cmCamera: {fileID: 0}
-  gameOverScreen: {fileID: 0}
+  impulseForce: 1.75
+  maxImpulse: 15
+  maxShine: 1000
+  shine: 0
+  slowMotionDuration: 1
   maxVelocity: 20
+  arrowSizeController: 8
+  maxFreeFalling: 5
 --- !u!212 &212005583196844160
 SpriteRenderer:
   m_ObjectHideFlags: 1

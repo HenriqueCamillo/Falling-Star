@@ -12,7 +12,7 @@ public class Star : MonoBehaviour {
 	[SerializeField][Range(1f, 100f)] float impulseForce;
 	[SerializeField][Range(1, 500)] float maxImpulse;
 	[SerializeField] float maxShine;
-	private float shine;
+	[SerializeField] float shine;
 	private Image shineBar;
 	[SerializeField][Range(0f, 1f)] float slowMotionDuration;
 	private bool inSlowMotion;
@@ -114,7 +114,6 @@ public class Star : MonoBehaviour {
 		
 		impulseDirection = this.transform.position - cmCamera.ScreenToWorldPoint(screenPoint);
 		Impulse = impulseDirection * impulseForce;
-		impulseDirection = impulseDirection * impulseForce;
 
 		if (impulse.magnitude > maxImpulse) {
 			impulse = impulse.normalized * maxImpulse;
