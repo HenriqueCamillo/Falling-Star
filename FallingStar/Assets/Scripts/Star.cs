@@ -25,19 +25,39 @@ public class Star : MonoBehaviour {
 	[SerializeField][Range(1, 10)] float maxFreeFalling;
 	private RaycastHit2D hit;
 	private bool canImpulse = true;
+	[SerializeField] bool noShine = false;
 
 	public float Shine {
 		get{return shine;}
 		set {
-			shine = value;
-			if (shine <= 0){
-				shine = 0;
+			// If tried to use shine it didn't have, game over
+			if (noShine && value <= shine) {
 				GameManager.instance.inGame = false;
 				StageManager.instance.GameOver();
+				return;
 			}
-			if (shine > maxShine) {
-                shine = maxShine;
+
+			// If recovering shine
+			if (value > shine) {
+				noShine = false;
+
+				// Sets shine to value, limiting it to maxShine
+				if (value > maxShine) {
+					shine = maxShine;
+				} else {
+					shine = value;
+				}
+			} else {
+				// Sets shine to value, limiting it to positive values
+				if (value <= 0) {
+					shine = 0;
+					noShine = true;
+				} else {
+					shine = value;
+				}
 			}
+
+			//  Moves the bar
             shineBar.fillAmount = shine / maxShine;
 		}
 	}
@@ -121,9 +141,14 @@ public class Star : MonoBehaviour {
 		arrowSize = impulse;
 	}
 	void ImpulseStar() {
+
+		if (impulse.magnitude > Shine) {
+			impulse = impulse.normalized * Shine;
+		}
+
 		Debug.DrawLine(this.transform.position,impulse, Color.green, 0.3f);
 		rBody.AddForce(impulse, ForceMode2D.Impulse);
 
-		Shine -= Vector3.SqrMagnitude(impulse);
+		Shine -= impulse.magnitude;
 	}
 }

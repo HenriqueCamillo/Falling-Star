@@ -46,7 +46,7 @@ public class LevelLoad: MonoBehaviour {
 		/* Check if number of stars gotten is equal or higher than the number of stars required to play the level,
 		and then, enables or disables the button, and changes its opacity to indicate wheter it's active or not. */
 		requiredStars = GameManager.instance.starRequirement[thisLevel-1];
-		Debug.Log("Level " + thisLevel + " requires " + requiredStars + " stars");
+		// Debug.Log("Level " + thisLevel + " requires " + requiredStars + " stars");
 		
 		if (GameManager.instance.numberOfStars >= requiredStars) {
 			buttonScript.enabled = true;

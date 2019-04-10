@@ -140,14 +140,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cmCamera: {fileID: 0}
-  impulseForce: 1.75
+  impulseForce: 2
   maxImpulse: 15
-  maxShine: 1000
+  maxShine: 80
   shine: 0
   slowMotionDuration: 1
   maxVelocity: 20
   arrowSizeController: 8
   maxFreeFalling: 5
+  noShine: 0
 --- !u!212 &212005583196844160
 SpriteRenderer:
   m_ObjectHideFlags: 1

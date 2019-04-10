@@ -48,9 +48,9 @@ public class GameManager : MonoBehaviour {
 				saveStream.Close();
 			}
 
-			foreach (KeyValuePair<int, int> entry in save.stars) {
-				Debug.Log("Level " + entry.Key + ": " + entry.Value + " stars");
-			}
+			// foreach (KeyValuePair<int, int> entry in save.stars) {
+			// 	Debug.Log("Level " + entry.Key + ": " + entry.Value + " stars");
+			// }
 		}
 	}
 
