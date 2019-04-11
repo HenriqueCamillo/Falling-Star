@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class LevelLoad: MonoBehaviour {
 	public int thisLevel; 
-	[SerializeField] GameObject star1, star2, star3, pickups;
 	[SerializeField] Button buttonScript;
 	[SerializeField] Image buttonImage;
 
 	[SerializeField] int requiredStars;
-	[SerializeField] GameObject requirement;
+	[SerializeField] GameObject requirement, starsGotten;
 
 	/// <summary>
 	/// Displays the number of stars gotten in the level.
@@ -22,30 +21,6 @@ public class LevelLoad: MonoBehaviour {
 		GameManager.instance.CalculateNumberOfStars();
 		transform.Find("Button").Find("Text").gameObject.GetComponent<Text>().text = this.gameObject.name;
 
-		if (GameManager.instance.save.stars.ContainsKey(thisLevel)){
-			if (GameManager.instance.save.stars[thisLevel] == 3) {
-				star1.SetActive(true);
-				star2.SetActive(true);
-				star3.SetActive(true);
-			} else if (GameManager.instance.save.stars[thisLevel] == 2) {
-				star1.SetActive(true);
-				star2.SetActive(true);
-				star3.SetActive(false);
-			} else if (GameManager.instance.save.stars[thisLevel] == 1) {
-				star1.SetActive(true);
-				star2.SetActive(false);
-				star3.SetActive(false);
-			} else {
-				star1.SetActive(false);
-				star2.SetActive(false);
-				star3.SetActive(false);
-			}
-		} else {
-			star1.SetActive(false);
-			star2.SetActive(false);
-			star3.SetActive(false);
-		}
-
 		/* Check if number of stars gotten is equal or higher than the number of stars required to play the level,
 		and then, enables or disables the button, and changes its opacity to indicate wheter it's active or not. */
 		requiredStars = GameManager.instance.starRequirement[thisLevel-1];
@@ -54,19 +29,20 @@ public class LevelLoad: MonoBehaviour {
 		if (GameManager.instance.numberOfStars >= requiredStars) {
 			buttonScript.enabled = true;
 
-			pickups.SetActive(true);
+			starsGotten.SetActive(true);
 			requirement.SetActive(false);
+
+			starsGotten.GetComponentInChildren<Text>().text = GameManager.instance.save.stars[thisLevel].ToString() + "/3";
 
 			// Changes the opacity of the button
 			var tempColor = buttonImage.color;
 			tempColor.a = 1f;
 			buttonImage.color = tempColor;
 		} else {
-			pickups.SetActive(false);
+			starsGotten.SetActive(false);
 			requirement.SetActive(true);
 
-			// requirement.GetComponentInChildren<Text>().text = GameManager.instance.numberOfStars.ToString() + "/" + requiredStars.ToString();
-			requirement.GetComponentInChildren<Text>().text = requiredStars.ToString();
+			requirement.GetComponentInChildren<Text>().text = "x" + requiredStars.ToString();
 
 			buttonScript.enabled = false;
 
