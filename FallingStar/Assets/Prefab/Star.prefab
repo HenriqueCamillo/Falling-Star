@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cmCamera: {fileID: 0}
-  impulseForce: 2
+  impulseForce: 2.25
   maxImpulse: 15
   maxShine: 80
   shine: 0

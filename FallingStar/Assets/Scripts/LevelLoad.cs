@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class LevelLoad: MonoBehaviour {
 	public int thisLevel; 
-	[SerializeField] GameObject star1, star2, star3;
+	[SerializeField] GameObject star1, star2, star3, pickups;
 	[SerializeField] Button buttonScript;
 	[SerializeField] Image buttonImage;
 
 	[SerializeField] int requiredStars;
-	[SerializeField] Text requirementText;
+	[SerializeField] GameObject requirement;
 
 	/// <summary>
 	/// Displays the number of stars gotten in the level.
@@ -21,7 +21,6 @@ public class LevelLoad: MonoBehaviour {
 		// Displays the number of stars gotten in the level, activating or deactivating the star images.
 		GameManager.instance.CalculateNumberOfStars();
 		transform.Find("Button").Find("Text").gameObject.GetComponent<Text>().text = this.gameObject.name;
-		requirementText.text = GameManager.instance.numberOfStars.ToString() + "/" + requiredStars.ToString();
 
 		if (GameManager.instance.save.stars.ContainsKey(thisLevel)){
 			if (GameManager.instance.save.stars[thisLevel] == 3) {
@@ -55,11 +54,20 @@ public class LevelLoad: MonoBehaviour {
 		if (GameManager.instance.numberOfStars >= requiredStars) {
 			buttonScript.enabled = true;
 
+			pickups.SetActive(true);
+			requirement.SetActive(false);
+
 			// Changes the opacity of the button
 			var tempColor = buttonImage.color;
 			tempColor.a = 1f;
 			buttonImage.color = tempColor;
 		} else {
+			pickups.SetActive(false);
+			requirement.SetActive(true);
+
+			// requirement.GetComponentInChildren<Text>().text = GameManager.instance.numberOfStars.ToString() + "/" + requiredStars.ToString();
+			requirement.GetComponentInChildren<Text>().text = requiredStars.ToString();
+
 			buttonScript.enabled = false;
 
 			// Changes the opacity of the button
