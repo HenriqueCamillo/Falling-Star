@@ -11,14 +11,18 @@ public class LevelLoad: MonoBehaviour {
 	[SerializeField] Image buttonImage;
 
 	[SerializeField] int requiredStars;
+	[SerializeField] Text requirementText;
 
 	/// <summary>
 	/// Displays the number of stars gotten in the level.
-	/// Check if the level is already unlocked or not, allowing or not the player to play it
+	/// Checks if the level is already unlocked or not, allowing or not the player to play it
 	/// </summary>
 	void Start () {
 		// Displays the number of stars gotten in the level, activating or deactivating the star images.
+		GameManager.instance.CalculateNumberOfStars();
 		transform.Find("Button").Find("Text").gameObject.GetComponent<Text>().text = this.gameObject.name;
+		requirementText.text = GameManager.instance.numberOfStars.ToString() + "/" + requiredStars.ToString();
+
 		if (GameManager.instance.save.stars.ContainsKey(thisLevel)){
 			if (GameManager.instance.save.stars[thisLevel] == 3) {
 				star1.SetActive(true);
