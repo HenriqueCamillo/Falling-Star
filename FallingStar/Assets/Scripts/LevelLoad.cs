@@ -9,7 +9,8 @@ public class LevelLoad: MonoBehaviour {
 	[SerializeField] Button buttonScript;
 	[SerializeField] Image buttonImage;
 
-	[SerializeField] int requiredStars;
+	// [SerializeField] 
+	private int requiredStars;
 	[SerializeField] GameObject requirement, starsGotten;
 
 	/// <summary>
