@@ -9,7 +9,8 @@ public class LevelLoad: MonoBehaviour {
 	[SerializeField] Button buttonScript;
 	[SerializeField] Image buttonImage;
 
-	[SerializeField] int requiredStars;
+	// [SerializeField] 
+	private int requiredStars;
 	[SerializeField] GameObject requirement, starsGotten;
 
 	/// <summary>
@@ -32,7 +33,7 @@ public class LevelLoad: MonoBehaviour {
 			starsGotten.SetActive(true);
 			requirement.SetActive(false);
 
-			if (GameManager.instance.save.stars.ContainsKey(thisLevel)) {
+			if (GameManager.instance.save.stars.ContainsKey(thisLevel)){
 				starsGotten.GetComponentInChildren<Text>().text = GameManager.instance.save.stars[thisLevel].ToString() + "/3";
 			} else {
 				starsGotten.GetComponentInChildren<Text>().text = "0/3";
