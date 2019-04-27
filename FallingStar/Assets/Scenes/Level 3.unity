@@ -676,6 +676,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 114522844126528136, guid: 121092655052f65468dc8e175b781ffb,
+        type: 2}
+      propertyPath: pauseButton
+      value: 
+      objectReference: {fileID: 975496419}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 121092655052f65468dc8e175b781ffb, type: 2}
   m_IsPrefabAsset: 0
@@ -2047,6 +2052,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75e5f622d1ed90640934b8fbbe074f40, type: 2}
   m_IsPrefabAsset: 0
+--- !u!224 &975496419 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224677788983475252, guid: 75e5f622d1ed90640934b8fbbe074f40,
+    type: 2}
+  m_PrefabInternal: {fileID: 975496418}
 --- !u!1 &997506246
 GameObject:
   m_ObjectHideFlags: 0

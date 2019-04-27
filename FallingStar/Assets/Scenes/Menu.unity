@@ -1755,6 +1755,11 @@ Prefab:
       propertyPath: m_Name
       value: Level 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114580773965412624, guid: 21800f37a25058945b3f9d9160b794e0,
+        type: 2}
+      propertyPath: thisLevel
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21800f37a25058945b3f9d9160b794e0, type: 2}
   m_IsPrefabAsset: 0
@@ -1883,7 +1888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfStars: 0
   currentLevel: 0
-  numberOfLevels: 3
+  numberOfLevels: 6
   audioSource: {fileID: 0}
   audioClip:
   - {fileID: 8300000, guid: de32ce78d2ef5a9468600f4d5976efde, type: 3}

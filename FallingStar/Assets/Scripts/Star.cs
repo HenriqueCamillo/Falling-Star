@@ -26,6 +26,7 @@ public class Star : MonoBehaviour {
 	private RaycastHit2D hit;
 	private bool canImpulse = true;
 	[SerializeField] bool noShine = false;
+	[SerializeField] RectTransform pauseButton;
 
 	public float Shine {
 		get{return shine;}
@@ -72,12 +73,24 @@ public class Star : MonoBehaviour {
 	}
 
 	void Update () {
+		Vector3 mouse = cmCamera.ScreenToWorldPoint(Input.mousePosition);
+		Vector3 pause = cmCamera.ScreenToWorldPoint(pauseButton.position);
+
 		hit = Physics2D.Raycast(cmCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.up);
-		if (hit.collider && hit.collider.name == "Pause") {
+		
+		if ((pause - mouse).magnitude < 1) {
 			canImpulse = false;
+			Debug.Log("Foi");
 		} else {
 			canImpulse = true;
 		}
+
+
+		// if (hit.collider && hit.collider.name == "Pause") {
+		// 	canImpulse = false;
+		// } else {
+		// 	canImpulse = true;
+		// }
 
 		canImpulse = canImpulse & GameManager.instance.inGame;
 

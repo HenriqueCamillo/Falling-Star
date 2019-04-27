@@ -1732,6 +1732,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1299260166487330, guid: 75e5f622d1ed90640934b8fbbe074f40,
     type: 2}
   m_PrefabInternal: {fileID: 732348081}
+--- !u!224 &732348083 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224677788983475252, guid: 75e5f622d1ed90640934b8fbbe074f40,
+    type: 2}
+  m_PrefabInternal: {fileID: 732348081}
 --- !u!114 &732348086 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114448017052622644, guid: 75e5f622d1ed90640934b8fbbe074f40,
@@ -4041,6 +4046,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 114522844126528136, guid: 121092655052f65468dc8e175b781ffb,
+        type: 2}
+      propertyPath: pauseButton
+      value: 
+      objectReference: {fileID: 732348083}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 121092655052f65468dc8e175b781ffb, type: 2}
   m_IsPrefabAsset: 0
