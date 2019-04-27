@@ -13,6 +13,8 @@ public class StageManager : MonoBehaviour {
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject endGameScreen;
 	[SerializeField] GameObject gameOverScreen;
+	[SerializeField] GameObject mapPreviewText;
+	[SerializeField] Image shineBar, shine;
 	public GameObject insufficientStars;
     public Text stageName;
     public int stars = 0;
@@ -35,6 +37,8 @@ public class StageManager : MonoBehaviour {
         endGameScreen.SetActive(false);
 		gameOverScreen.SetActive(false);
 		insufficientStars.SetActive(false);
+        shineBar.enabled = false;
+        shine.enabled = false;
         pause.SetActive(false);
 
         foreach(GameObject gm in bonus)
@@ -59,9 +63,12 @@ public class StageManager : MonoBehaviour {
     public void QuitMapView() {
         cameraMain.enabled = true;
         cameraFar.enabled = false;
+		mapPreviewText.SetActive(false);
 
         Destroy(ready.gameObject);
         pause.SetActive(true);
+        shineBar.enabled = true;
+        shine.enabled = true;
 
         GameManager.instance.inGame = true;
     }
