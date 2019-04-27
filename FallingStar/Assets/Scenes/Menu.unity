@@ -1857,13 +1857,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfStars: 0
   currentLevel: 0
-  numberOfLevels: 3
+  numberOfLevels: 6
   audioSource: {fileID: 0}
   audioClip:
   - {fileID: 8300000, guid: de32ce78d2ef5a9468600f4d5976efde, type: 3}
   - {fileID: 8300000, guid: 72b3d916de4a88f4d86857ef3f299f03, type: 3}
   inGame: 0
-  starRequirement: 000000000200000004000000
+  starRequirement: 0000000002000000040000000a0000000b0000000c000000
 --- !u!4 &664801540
 Transform:
   m_ObjectHideFlags: 0
@@ -3979,7 +3979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1751250334
 RectTransform:
   m_ObjectHideFlags: 0

@@ -32,7 +32,11 @@ public class LevelLoad: MonoBehaviour {
 			starsGotten.SetActive(true);
 			requirement.SetActive(false);
 
-			starsGotten.GetComponentInChildren<Text>().text = GameManager.instance.save.stars[thisLevel].ToString() + "/3";
+			if (GameManager.instance.save.stars.ContainsKey(thisLevel)) {
+				starsGotten.GetComponentInChildren<Text>().text = GameManager.instance.save.stars[thisLevel].ToString() + "/3";
+			} else {
+				starsGotten.GetComponentInChildren<Text>().text = "0/3";
+			}
 
 			// Changes the opacity of the button
 			var tempColor = buttonImage.color;

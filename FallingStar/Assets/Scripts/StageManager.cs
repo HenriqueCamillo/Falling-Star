@@ -18,6 +18,8 @@ public class StageManager : MonoBehaviour {
     public int stars = 0;
     private float currentTimeScale;
     private bool gamePaused;
+    [SerializeField] Camera cameraMain, cameraFar;
+    [SerializeField] GameObject ready, pause;
     
     void Awake() {
         if (instance == null)
@@ -33,9 +35,15 @@ public class StageManager : MonoBehaviour {
         endGameScreen.SetActive(false);
 		gameOverScreen.SetActive(false);
 		insufficientStars.SetActive(false);
+        pause.SetActive(false);
 
         foreach(GameObject gm in bonus)
             gm.SetActive(false);
+
+        cameraMain.enabled = false;
+        cameraFar.enabled = true;
+
+        GameManager.instance.inGame = false;
     }
 
     /// <summary>
@@ -45,6 +53,17 @@ public class StageManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             PauseGame();
         }
+
+    }
+
+    public void QuitMapView() {
+        cameraMain.enabled = true;
+        cameraFar.enabled = false;
+
+        Destroy(ready.gameObject);
+        pause.SetActive(true);
+
+        GameManager.instance.inGame = true;
     }
 
     public void GameOver() {
