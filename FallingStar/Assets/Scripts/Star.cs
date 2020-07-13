@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Star : MonoBehaviour {
 	[SerializeField] Camera cmCamera;
@@ -27,6 +28,7 @@ public class Star : MonoBehaviour {
 	private bool canImpulse = true;
 	[SerializeField] bool noShine = false;
 	[SerializeField] RectTransform pauseButton;
+	private bool clickOnUI = false;
 
 	public float Shine {
 		get{return shine;}
@@ -76,15 +78,16 @@ public class Star : MonoBehaviour {
 		Vector3 mouse = cmCamera.ScreenToWorldPoint(Input.mousePosition);
 		Vector3 pause = cmCamera.ScreenToWorldPoint(pauseButton.position);
 
-		hit = Physics2D.Raycast(cmCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.up);
+		// hit = Physics2D.Raycast(cmCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.up);
 		
-		if ((pause - mouse).magnitude < 1) {
-			canImpulse = false;
-			Debug.Log("Foi");
-		} else {
-			canImpulse = true;
-		}
+		// if ((pause - mouse).magnitude < 1) {
+		// 	canImpulse = false;
+		// 	Debug.Log("Foi");
+		// } else {
+		// 	canImpulse = true;
+		// }
 
+		clickOnUI = EventSystem.current.IsPointerOverGameObject() | IsPointerOverUIObject();
 
 		// if (hit.collider && hit.collider.name == "Pause") {
 		// 	canImpulse = false;
@@ -92,7 +95,7 @@ public class Star : MonoBehaviour {
 		// 	canImpulse = true;
 		// }
 
-		canImpulse = canImpulse & GameManager.instance.inGame;
+		canImpulse = !clickOnUI & GameManager.instance.inGame;
 
 		if (Input.GetMouseButtonDown(0) && !inSlowMotion && canImpulse) {
 			inSlowMotion = true;
@@ -101,7 +104,11 @@ public class Star : MonoBehaviour {
 			Time.timeScale = 0.1f;
 			arrowSprite.enabled = true;
 			Invoke("SlowMotion", slowMotionDuration * Time.timeScale);
+		} else if (Input.GetMouseButtonUp(0) && inSlowMotion) {
+			CancelInvoke("SlowMotion");
+			SlowMotion();
 		}
+
 
 		if(inSlowMotion)
 			CalculateImpulse();
@@ -164,4 +171,14 @@ public class Star : MonoBehaviour {
 
 		Shine -= impulse.magnitude;
 	}
+
+
+	private bool IsPointerOverUIObject() 
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 }
